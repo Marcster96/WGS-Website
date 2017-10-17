@@ -5,6 +5,8 @@ body,html{
 
 body {
     font-family: Roboto;
+    padding-top: 50px;
+    background-color: whitesmoke;
 }
 
 .navbar{
@@ -48,4 +50,17 @@ img {
     font-weight: bolder;
 }
 
-.navbar
+.panel-heading{
+    background-color: lightblue !important;
+    color: dimgray!important;;
+}
+
+.panelLeistung{
+    height: 500px;
+}
+
+.img-References{
+    height: 250px;
+    width:  450px;
+    margin-top: 15px;
+}
