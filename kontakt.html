@@ -42,6 +42,9 @@
 
     <section>
         <div class="container">
+            <div id="messageContainer">
+
+            </div>
             <h1>Kontakt</h1>
             <div class="row">
                 <div class="col-sm-6">
@@ -74,31 +77,34 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-
     <script>
-
-        $("#send").click( function () {
-            console.log("Test");
-            var name = $("#name").val();
-            var email = $("#email").val();
-            var message = $("#message").val();
-
-            if(name == "" || email == "" || message == ""){
-                alert("Falsche Eingabe Brudiiii");
-            }else{
-
-                $.ajax({
-                    url: "https://formspree.io/marc.mayer96@outlook.de",
-                    method: "POST",
-                    data: {message:  "Name:" + name + " /r " + "E-Mail:" + email + " /r" + "Nachricht:" + message},
-                    dataType: "jason"
-                });
-
-                $("#name").value = "";
-                $("#email").value = "";
-                $("#message").value = "";
-                alert("Message sendet");
-            }
+        $(document).ready(function () {
+            $("#send").click(function () {
+                var name = $("#name").val();
+                var email = $("#email").val();
+                var message = $("#message").val();
+                console.log("Werte: Name " + name + " - E-Mail " + email + " - Message " + message);
+                if(name == "" && email == "" && message == ""){
+                    $("#messageContainer").html("<div class='alert alert-danger alert-dismissable fade in'> " +
+                            "<button type='button' class='close' data-dismiss='alert'  aria-label='Schließen'>" +
+                            "<span aria-hidden='true'>&times;</span></button>" +
+                            "<strong>Fehlermeldung</strong><br>Sie haben nicht alle Felder ausgefüllt" +
+                        "</div>");
+                }else{
+                    $.ajax({
+                        url: "result.txt",
+                        typ: "POST",
+                        data: "name=" + name + "&email=" + email + "&message=" + message,
+                        success: function(result){
+                            $("#messageContainer").html("<div class='alert alert-success alert-dismissable fade in'> " +
+                                "<button type='button' class='close' data-dismiss='alert'  aria-label='Schließen'>" +
+                                "<span aria-hidden='true'>&times;</span></button>" +
+                                "<strong>Erfolg</strong><br>Die Nachricht wurde versendet..." +
+                                "</div>");
+                        }
+                    });
+                }
+            });
         });
     </script>
 </body>
